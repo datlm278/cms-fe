@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "Fast & Furious 9",
+    "releaseDate": 1662656400000,
+    "endingDate": 1670518800000,
+    "director": "Paul Walker (Brian O'Connor)",
+    "status": 1,
+    "poster": null,
+    "cinemaType": "Phim tội phạm",
+    "producerName": "Warner Bros",
+    "createTime": 1666789185000,
+    "updateTime": null
+  },
+  {
+    "id": 2,
+    "name": "Avatar",
+    "releaseDate": 1665334800000,
+    "endingDate": 1673283600000,
+    "director": "James Cameron",
+    "status": 1,
+    "poster": null,
+    "cinemaType": "Phim khoa học viễn tưởng",
+    "producerName": "20th Century Fox",
+    "createTime": 1666789185000,
+    "updateTime": null
+  },
+  {
+    "id": 3,
+    "name": "Titanic",
+    "releaseDate": 1660150800000,
+    "endingDate": 1668099600000,
+    "director": "James Cameron",
+    "status": 1,
+    "poster": null,
+    "cinemaType": "Phim lịch sử",
+    "producerName": "Warner Bros",
+    "createTime": 1666789185000,
+    "updateTime": null
+  },
+  {
+    "id": 4,
+    "name": "Avengers: Endgame",
+    "releaseDate": 1565456400000,
+    "endingDate": 1669050000000,
+    "director": "Tony Stark",
+    "status": 1,
+    "poster": null,
+    "cinemaType": "Phim khoa học viễn tưởng",
+    "producerName": "Marvel Studios",
+    "createTime": 1666789185000,
+    "updateTime": null
+  },
+  {
+    "id": 5,
+    "name": "Star Wars VII: The Force Awakens",
+    "releaseDate": 1605805200000,
+    "endingDate": 1671469200000,
+    "director": "Luke Skywalker",
+    "status": 1,
+    "poster": null,
+    "cinemaType": "Phim khoa học viễn tưởng",
+    "producerName": "Warner Bros",
+    "createTime": 1666789185000,
+    "updateTime": null
+  }
+]

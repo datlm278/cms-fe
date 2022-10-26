@@ -1,1 +1,39 @@
-<p>cinema works!</p>
+<div class="container-fluid">
+  <div>
+    <button type="button" class="btn btn-success">Thêm mới</button>
+  </div>
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên phim</th>
+        <th scope="col">Đạo diễn</th>
+        <th scope="col">Loại phim</th>
+        <th scope="col">Hãng sản xuất</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Thời gian tạo</th>
+        <th scope="col">Thời gian cập nhật</th>
+        <th scope="col">Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cinema of cinemas">
+        <th>{{ cinema.id }}</th>
+        <th>{{ cinema.name }}</th>
+        <th>{{ cinema.director }}</th>
+        <th>{{ cinema.cinemaType }}</th>
+        <th>{{ cinema.producerName }}</th>
+        <th>{{ cinema.status === 1 ? 'Đang chiếu' : 'Sắp chiếu' }}</th>
+        <th>{{ cinema.createTime }}</th>
+        <th>{{ cinema.updateTime }}</th>
+        <th>
+          <button type="button" class="btn btn-outline-primary">Sửa</button>
+          <button type="button" class="btn btn-outline-danger">Xoá</button>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

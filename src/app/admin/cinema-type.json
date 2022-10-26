@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Phim tội phạm",
+    "description": "những bộ phim có bối cảnh là các hoạt động tội ác, nội dung thường bao gồm các tình tiết liên quan đến các hành động trái pháp luật hay tổ chức tội phạm",
+    "status": 1,
+    "createTime": 1666789145000,
+    "updateTime": null
+  },
+  {
+    "id": 2,
+    "name": "Phim lịch sử",
+    "description": "bối cảnh phim là các thời điểm trong quá khứ, thường gắn với các sự kiện lịch sử quan trọng. Phim lịch sử được chia làm hai loại là phim chính sử và phim dã sử",
+    "status": 1,
+    "createTime": 1666789145000,
+    "updateTime": null
+  },
+  {
+    "id": 3,
+    "name": "Phim chiến tranh",
+    "description": "thể loại phim liên quan đến các cuộc chiến, thường được liên kết chặt chẽ với các sự kiện diễn ra trong thế kỷ 20 và có trọng tâm là các cảnh chiến đấu",
+    "status": 1,
+    "createTime": 1666789145000,
+    "updateTime": null
+  },
+  {
+    "id": 4,
+    "name": "Phim khoa học viễn tưởng",
+    "description": " thể loại phim thường sử dụng những yếu tố hư cấu hay tiên đoán về những hiện tượng khoa học chưa xác thực như người ngoài hành tinh, ngoại cảm, du hành thời gian hay thế giới song song",
+    "status": 1,
+    "createTime": 1666789145000,
+    "updateTime": null
+  },
+  {
+    "id": 5,
+    "name": "phim kiếm hiệp",
+    "description": "đây là thể loại phim đặc trưng của châu Á, thường lấy bối cảnh thời phong kiến hay được chuyển thể từ tiểu thuyết",
+    "status": 1,
+    "createTime": 1666789145000,
+    "updateTime": null
+  }
+]
