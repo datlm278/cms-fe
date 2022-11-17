@@ -1,4 +1,4 @@
-export interface cinema {
+export interface Cinema {
     id?: number,
     name: string,
     releaseDate: string,
@@ -7,5 +7,7 @@ export interface cinema {
     createTime: string,
     updateTime: string,
     cinemaTypeId?: number
-    producerId?: number
+    cinemaType: string,
+    producerId?: number,
+    producerName: string
 }

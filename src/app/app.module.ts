@@ -10,6 +10,9 @@ import { CinemaComponent } from './admin/cinema/cinema.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import {CinemaTypeComponent} from "./admin/cinema-type/cinema-type.component";
+import {HttpClientModule, HttpClient } from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -20,13 +23,16 @@ import {CinemaTypeComponent} from "./admin/cinema-type/cinema-type.component";
     CinemaComponent,
     HomeComponent,
     CinemaTypeComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [HttpClientModule, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
