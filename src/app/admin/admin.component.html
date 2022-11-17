@@ -1,2 +1,93 @@
-<p>admin works!</p>
-<router-outlet></router-outlet>
+<div id="wrapper">
+  <ul
+    class="navbar-nav sidebar accordion"
+    [ngClass]="{ toggled: !sidebarExpanse }"
+    id="accordionSidebar"
+  >
+    <div
+      class="d-flex flex-row align-items-center justify-content-between m-2 sidebar-header p-2"
+    >
+      <a
+        class="sidebar-brand d-flex align-items-center justify-content-center"
+        [routerLink]="['/admin']"
+      >
+        <img class="brand-image" src="assets/logo-light.png" alt="" />
+
+        <span class="sidebar-brand-text mx-1">CMS</span>
+      </a>
+      <!-- Sidebar Toggle (Topbar) -->
+
+      <a (click)="sidebarExpanse = !sidebarExpanse" class="btn-icon m-0 p-1">
+        <span class="material-symbols-outlined">
+          {{ sidebarExpanse ? "west" : "east" }}
+        </span>
+      </a>
+    </div>
+    <!-- Sidebar - Brand -->
+
+    <div class="pt-4"></div>
+
+    <!-- <hr class="sidebar-divider my-0" /> -->
+    <ng-container *ngFor="let item of menus">
+      <!-- Heading -->
+      <div class="sidebar-heading">{{ item.groupName }}</div>
+
+      <!-- Nav Item -->
+      <li class="nav-item" *ngFor="let menuItem of item.items">
+        <a
+          class="nav-link vertical-align d-flex"
+          routerLinkActive="active"
+          [routerLink]="[menuItem.link]"
+          [ngClass]="{ home: item.groupName === 'Home' }"
+        >
+          <!-- matTooltip="{{ menuItem.title }}"
+            matTooltipPosition="right" -->
+          <i class="mat-icon material-symbols-outlined">
+            {{ menuItem.icon }}
+          </i>
+          <span class="text-truncate">{{ menuItem.title }}</span></a
+        >
+      </li>
+      <!-- Divider -->
+      <!-- <hr class="sidebar-divider mb-0" /> -->
+    </ng-container>
+  </ul>
+
+  <div id="content-wrapper">
+    <div id="content">
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+        <!-- Topbar Navbar -->
+        <div class="container-fluid">
+          <ul class="navbar-nav ms-auto">
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a
+                class="nav-link dropdown-toggle d-flex flex-row align-items-center"
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  class="me-2 img-profile rounded-circle"
+                  src="assets/user.svg"
+                />
+
+                <div class="d-flex flex-column">
+                  <span class="text-dark">{{ getName() }}</span>
+                  <span class="text-secondary small">{{ getDescription() }}</span>
+                </div>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End of Topbar -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

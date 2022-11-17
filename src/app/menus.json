@@ -1,0 +1,28 @@
+[
+  {
+    "groupName": "Administration",
+    "items": [
+      {
+        "icon": "widgets",
+        "title": "Dashboard",
+        "link": "/admin/dashboard"
+      },
+      {
+        "icon": "local_activity",
+        "title": "Phim",
+        "link": "/admin/cinema"
+      },
+      {
+        "icon": "hive",
+        "title": "Loại phim",
+        "link": "/admin/cinema-type"
+      },
+      {
+        "icon": "group",
+        "title": "Hãng sản xuất",
+        "link": "/admin/producer"
+      }
+    ]
+  }
+]
+

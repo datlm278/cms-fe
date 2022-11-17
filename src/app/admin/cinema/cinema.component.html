@@ -1,1 +1,229 @@
-<p>cinema works!</p>
+<div class="container-fluid p-4">
+
+  <div class="d-flex justify-content-between">
+    <div class="d-flex gap-2">
+      <button
+        class="d-flex gap-2 btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#add-modal"
+      >
+        <i class="material-symbols-outlined"> person_add </i>
+        Thêm mới
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrapper my-4">
+    <div class="table-responsive border rounded">
+      <div class="table-header bg-light rounded-top">
+        <div class="d-flex justify-content-between align-items-center p-2">
+          <input
+            type="text"
+            class="form-control"
+            style="max-width: 260px"
+            placeholder="Tìm kiếm..."
+            #searchInput
+          />
+        </div>
+      </div>
+      <table class="table table-responsive table-body">
+        <thead>
+          <tr>
+            <th class="text-secondary">STT</th>
+            <th class="text-secondary">Tên phim</th>
+            <th class="text-secondary">Ngày khởi chiếu</th>
+            <th class="text-secondary">Đạo diễn</th>
+            <th class="text-secondary">Loại phim</th>
+            <th class="text-secondary">Hãng sản xuất</th>
+            <th class="text-secondary">Thời gian tạo</th>
+            <th class="text-secondary">Thời gian cập nhật</th>
+            <th class="text-secondary">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cinema of cinemas; index as index">
+            <td>{{ index + 1 }}</td>
+            <td class="text-truncate" style="max-width: 50px">
+              {{ cinema.name }}
+            </td>
+            <td class="text-truncate" style="max-width: 50px">
+              {{ cinema.releaseDate | date:'dd/MM/yyyy' }}
+            </td>
+            <td class="text-truncate" style="max-width: 50px">
+              {{ cinema.director }}
+            </td>
+            <td class="text-truncate" style="max-width: 100px">
+              {{ cinema.cinemaType }}
+            </td>
+            <td class="text-truncate" style="max-width: 100px">
+              {{ cinema.producerName }}
+            </td>
+            <td>{{ cinema.createTime | date:'dd/MM/yyyy' }}</td>
+            <td>{{ cinema.updateTime }}</td>
+            <td>
+              <i
+                class="material-symbols-outlined"
+                data-bs-toggle="modal"
+                data-bs-target="#edit-modal"
+              >
+                edit
+              </i>
+              <i
+                class="material-symbols-outlined mx-2"
+              >
+                delete
+              </i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="table-footer rounded-bottom">
+        <p-paginator
+          [rows]="itemPerPage"
+          [totalRecords]="totalItem"
+          [pageLinkSize]="totalPage"
+          (onPageChange)="onPageChange($event)"
+        ></p-paginator>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Add modal -->
+  <div
+    class="modal fade"
+    id="add-modal"
+    tabindex="-1"
+    aria-labelledby="add-modal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="add-modal">Thêm mới phim</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data">
+            <div class="py-2">
+              <label for="name">Tên phim</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control my-2"
+                placeholder="nhập tên nhân viên"
+                required
+              />
+            </div>
+            <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)">
+              <p class="text-danger" *ngIf="name.errors?.['required']">
+                Vui lòng nhập tên nhân viên
+              </p>
+            </div> -->
+            <div class="py-2">
+              <label for="releaseDate">Ngày khởi chiếu</label>
+              <input
+                type="date"
+                name="releaseDate"
+                class="form-control my-2"
+                placeholder="chọn ngày khởi chiếu"
+                required
+              />
+            </div>
+            <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)">
+              <p class="text-danger" *ngIf="email.errors?.['required']">
+                Vui lòng nhập email
+              </p>
+            </div> -->
+            <div class="py-2">
+              <label for="director">Đạo diễn</label>
+              <input
+                type="text"
+                name="director"
+                class="form-control my-2"
+                placeholder="nhập đạo diễn"
+                required
+              />
+            </div>
+            <!-- <div *ngIf="address.invalid && (address.dirty || address.touched)">
+              <p class="text-danger" *ngIf="address.errors?.['required']">
+                Vui lòng nhập địa chỉ
+              </p>
+            </div> -->
+            <div class="py-2">
+              <label for="organizationId">Hãng sản xuất</label>
+              <select
+                name="organizationId"
+                class="form-select my-2"
+                required
+              >
+                <option [value]="0">Chọn hãng sản xuất</option>
+                <option
+                  *ngFor="let producer of producers"
+                  [value]="producer.id"
+                >
+                  {{ producer.name }}
+                </option>
+              </select>
+            </div>
+            <!-- <div
+              *ngIf="
+                organizationId.invalid &&
+                (organizationId.dirty || organizationId.touched)
+              "
+            >
+              <p
+                class="text-danger"
+                *ngIf="organizationId.errors?.['required']"
+              >
+                Vui lòng chọn tên tổ chức
+              </p>
+            </div> -->
+            <div class="py-2">
+              <label for="userId">Loại phim</label>
+              <select
+                name="userId"
+                class="form-select my-2"
+                required
+              >
+                <option [value]="0">Chọn loại phim</option>
+                <option *ngFor="let type of cinemaTypes" [value]="type.id">
+                  {{ type.name }}
+                </option>
+              </select>
+            </div>
+            <!-- <div *ngIf="userId.invalid && (userId.dirty || userId.touched)">
+              <p class="text-danger" *ngIf="userId.errors?.['required']">
+                Vui lòng chọn tên tài khoản
+              </p>
+            </div> -->
+            <div class="py-2">
+              <label for="image">Hình ảnh</label>
+              <input
+                type="file"
+                name="image"
+                class="form-control"
+              />
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Hủy
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Thêm Mới
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,7 +23,6 @@ const routes: Routes = [
       { path: 'cinema', component: CinemaComponent}
     ]
   }
-
 ];
 
 @NgModule({
