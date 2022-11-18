@@ -69,13 +69,13 @@
               </div>
             </td>
             <td>
-              <a class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#edit-modal">
+              <a class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#update-modal" (click)="getCinemaById(cinema.id)">
                 edit
               </a>
               <a class="material-symbols-outlined mx-2" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(cinema.id)">
                 delete
               </a>
-              <a class="material-symbols-outlined mx-2" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(cinema.id)">
+              <a class="material-symbols-outlined mx-2" data-bs-toggle="modal" data-bs-target="#detailsModal" (click)="openDeleteModal(cinema.id)">
                 more_horiz
               </a>
             </td>
@@ -93,7 +93,7 @@
     </div>
   </div>
 
-<!--   Add -->
+  <!-- Add -->
   <div id="add-modal" class="modal fade" tabindex="-1" aria-labelledby="add-modal" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -163,7 +163,7 @@
               </p>
             </div>
             <div class="py-2">
-              <label for="producerId">Hãng sản xuất</label>
+              <label for="producerId">Nhà sản xuất</label>
               <select
                 id="producerId"
                 name="producerId"
@@ -172,7 +172,7 @@
                 class="form-select my-2"
                 required
               >
-                <option [value]="0">Chọn hãng sản xuất</option>
+                <option value="0" disabled selected>-- Nhà sản xuất --</option>
                 <option
                   *ngFor="let producer of producers"
                   [value]="producer.id"
@@ -196,7 +196,7 @@
                 class="form-select my-2"
                 required
               >
-                <option [value]="0">Chọn loại phim</option>
+                <option value="0" disabled selected>-- Loại phim --</option>
                 <option *ngFor="let type of cinemaTypes" [value]="type.id">
                   {{ type.name }}
                 </option>
@@ -216,8 +216,8 @@
                 accept="image/*"
                 class="form-control"
                 (change)="onSelectedFile($event)"
-                [(ngModel)]="cinema.poster"
               />
+              <img [src]="url" alt="preview" width="100%" height="300px">
             </div>
 <!--            <div class="py-2 form-switch">-->
 <!--              <input class="form-check-input" type="checkbox"-->
@@ -260,6 +260,165 @@
       </div>
     </div>
   </div>
+
+  <!-- Update  -->
+  <div id="update-modal" class="modal fade" tabindex="-1" aria-labelledby="update-modal" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Cập nhật phim</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form #formUpdate="ngForm" enctype="multipart/form-data">
+            <div class="py-2">
+              <label for="name">Tên phim</label>
+              <input
+                type="text"
+                name="name"
+                [(ngModel)]="cinemaUpdate.name"
+                [value]="cinemaUpdate.name"
+                #name="ngModel"
+                class="form-control my-2"
+                placeholder="Tên phim"
+                required
+              />
+            </div>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+              <p class="text-danger" *ngIf="name.errors?.['required']">
+                Vui lòng nhập tên phim
+              </p>
+            </div>
+            <div class="py-2">
+              <label for="releaseDate">Ngày khởi chiếu</label>
+              <input
+                type="date"
+                name="releaseDate"
+                [ngModel]="cinemaUpdate.releaseDate | date:'yyyy-MM-dd'"
+                [value]="cinemaUpdate.releaseDate | date: 'yyyy-MM-dd'"
+                #release="ngModel"
+                class="form-control my-2"
+                required
+              />
+            </div>
+            <div *ngIf="release.invalid && (release.dirty || release.touched)">
+              <p class="text-danger" *ngIf="release.errors?.['required']">
+                Vui lòng chọn ngày khởi chiếu
+              </p>
+            </div>
+            <div class="py-2">
+              <label for="director">Đạo diễn</label>
+              <input
+                type="text"
+                name="director"
+                [(ngModel)]="cinemaUpdate.director"
+                [value]="cinemaUpdate.director"
+                #director = "ngModel"
+                class="form-control my-2"
+                placeholder="Đạo diễn"
+                required
+              />
+            </div>
+            <div *ngIf="director.invalid && (director.dirty || director.touched)">
+              <p class="text-danger" *ngIf="director.errors?.['required']">
+                Vui lòng nhập tên đạo diễn
+              </p>
+            </div>
+            <div class="py-2">
+              <label for="producerId">Nhà sản xuất</label>
+              <select
+                name="producerId"
+                [(ngModel)]="cinemaUpdate.producerId"
+                [value]="cinemaUpdate.producerId"
+                #producer="ngModel"
+                class="form-select my-2"
+                required
+              >
+                <option value="0" disabled selected>-- Nhà sản xuất --</option>
+                <option
+                  *ngFor="let producer of producers"
+                  [value]="producer.id"
+                >
+                  {{ producer.name }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="producer.invalid && (producer.dirty || producer.touched)">
+              <p class="text-danger" *ngIf="producer.errors?.['required']">
+                Vui lòng chọn hãng sản xuất
+              </p>
+            </div>
+            <div class="py-2">
+              <label for="cinemaTypeId">Loại phim</label>
+              <select
+                name="cinemaTypeId"
+                [(ngModel)]="cinemaUpdate.cinemaTypeId"
+                [value]="cinemaUpdate.cinemaTypeId"
+                #type="ngModel"
+                class="form-select my-2"
+                required
+              >
+                <option value="0" disabled selected>-- Loại phim --</option>
+                <option *ngFor="let type of cinemaTypes" [value]="type.id">
+                  {{ type.name }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="type.invalid && (type.dirty || type.touched)">
+              <p class="text-danger" *ngIf="type.errors?.['required']">
+                Vui lòng chọn loại phim
+              </p>
+            </div>
+            <div class="py-2">
+              <label for="poster">Hình ảnh</label>
+              <input
+                type="file"
+                name="poster"
+                accept="image/*"
+                class="form-control"
+                [(ngModel)]="cinemaUpdate.poster"
+                (change)="onSelectedFile($event)"
+              />
+              <img src="C:\project\cms\cms-be\src\main\webapp\images\{{cinemaUpdate.posterName}}" alt="preview" width="100%" height="300px">
+            </div>
+            <div class="py-2">
+              <label for="status">Trạng thái</label>
+              <select
+                name="status"
+                [(ngModel)]="cinemaUpdate.status"
+                [value]="cinemaUpdate.status"
+                #type="ngModel"
+                class="form-select my-2"
+                required
+              >
+                <option [value]="1">Đang chiếu</option>
+                <option [value]="0">Dừng chiếu</option>
+              </select>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                Hủy
+              </button>
+              <button
+                [disabled]="formUpdate.invalid"
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                (click)="onUpdate(formUpdate.value, formUpdate)">
+                Cập nhật
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Delete -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

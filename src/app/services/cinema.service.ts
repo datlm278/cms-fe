@@ -18,20 +18,29 @@ export class CinemaService {
     return this.http.get<Cinema[]>(`${this.host}/${this.rest}/cinema/find-all`);
   }
 
-  public createCinema(cinema: Cinema): Observable<Cinema> {
-    return this.http.post<Cinema>(`${this.host}/${this.rest}/cinema/create`, cinema);
-  }
-
   public insertCinema(data: Cinema, file: any){
     const formData = new FormData();
     formData.append('cinema', JSON.stringify(data))
     formData.append('poster', file, file.name);
-    return this.http.post(`${this.host}/${this.rest}/cinema/create-cinema`, formData, {
+    return this.http.post(`${this.host}/${this.rest}/cinema/create`, formData, {
       responseType: "text"
     });
   }
 
   public deleteCinema(cinemaId: number | undefined) {
     return this.http.post(`${this.host}/${this.rest}/cinema/delete?id=${cinemaId}`, null, {responseType: "text"});
+  }
+
+  public getCinemaById(id: number | undefined): Observable<Cinema> {
+    return this.http.get<Cinema>(`${this.host}/${this.rest}/cinema/find-by-id?id=${id}`);
+  }
+
+  public updateCinema(data: Cinema, file: any, id: number | undefined){
+    const formData = new FormData();
+    formData.append('cinema', JSON.stringify(data))
+    formData.append('poster', file, file.name);
+    return this.http.post(`${this.host}/${this.rest}/cinema/update?id=${id}`, formData, {
+      responseType: "text"
+    });
   }
 }
