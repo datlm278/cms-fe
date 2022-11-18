@@ -3,6 +3,8 @@ export interface Cinema {
     name: string,
     releaseDate: string,
     director: string,
+    poster: string,
+    posterName: string,
     status?: number,
     createTime: string,
     updateTime: string,

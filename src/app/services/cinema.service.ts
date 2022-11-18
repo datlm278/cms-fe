@@ -22,6 +22,15 @@ export class CinemaService {
     return this.http.post<Cinema>(`${this.host}/${this.rest}/cinema/create`, cinema);
   }
 
+  public insertCinema(data: Cinema, file: any){
+    const formData = new FormData();
+    formData.append('cinema', JSON.stringify(data))
+    formData.append('poster', file, file.name);
+    return this.http.post(`${this.host}/${this.rest}/cinema/create-cinema`, formData, {
+      responseType: "text"
+    });
+  }
+
   public deleteCinema(cinemaId: number | undefined) {
     return this.http.post(`${this.host}/${this.rest}/cinema/delete?id=${cinemaId}`, null, {responseType: "text"});
   }

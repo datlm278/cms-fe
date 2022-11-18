@@ -1,40 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import PRODUCER from '../producer.json';
 import TYPE from '../cinema-type.json';
-import {Cinema} from 'src/app/models/cinema';
-import {CinemaService} from "../../services/cinema.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ConfirmationService, MessageService} from "primeng/api";
-import {NgForm} from "@angular/forms";
+import { Cinema } from 'src/app/models/cinema';
+import { CinemaService } from '../../services/cinema.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cinema',
   templateUrl: './cinema.component.html',
-  styleUrls: ['./cinema.component.css']
+  styleUrls: ['./cinema.component.css'],
 })
 export class CinemaComponent implements OnInit {
-
   public cinemas: Cinema[] = [];
   cinema: Cinema = {
-    cinemaType: "",
-    createTime: "",
-    director: "",
-    name: "",
-    producerName: "",
-    releaseDate: "",
-    updateTime: ""
-  }
+    poster: "",
+    posterName: "",
+    cinemaType: '',
+    createTime: '',
+    director: '',
+    name: '',
+    producerName: '',
+    releaseDate: '',
+    updateTime: ''
+  };
 
   producers: any[] = [];
   cinemaTypes: any[] = [];
   private selectedValue: number | undefined = -1;
   private deleteModal: any;
+  public cinemaFile: string | Blob = '';
 
   constructor(
     private cinemaService: CinemaService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getCinemas();
@@ -48,42 +50,67 @@ export class CinemaComponent implements OnInit {
         this.cinemas = response;
         console.log(response);
       },
-      (error: HttpErrorResponse)  => {
+      (error: HttpErrorResponse) => {
         console.log(error.message);
       }
-    )
+    );
+  }
+
+  // onSubmit(data: Cinema, form: NgForm) {
+  //   this.cinemaService.createCinema(data).subscribe({
+  //     next: (value) => {
+  //       this.getCinemas();
+  //       form.control.reset();
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Thêm mới phim',
+  //         detail: 'Thêm phim thành công'
+  //       })
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Thêm mới phim',
+  //         detail: 'Thêm phim thất bại'
+  //       })
+  //     }
+  //   })
+  //   console.log(data);
+  // }
+  onSelectedFile(event: any) {
+    this.cinemaFile = event.target.files[0];
+    console.log(this.cinemaTypes);
   }
 
   onSubmit(data: Cinema, form: NgForm) {
-    this.cinemaService.createCinema(data).subscribe({
-      next: (value) => {
-        this.getCinemas();
-        form.control.reset();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Thêm mới phim',
-          detail: 'Thêm phim thành công'
+    this.cinemaService.insertCinema(data, this.cinemaFile).subscribe({
+          next: (value) => {
+            this.getCinemas();
+            form.control.reset();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Thêm mới phim',
+              detail: 'Thêm phim thành công'
+            })
+          },
+          error: (err) => {
+            console.log(err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Thêm mới phim',
+              detail: 'Thêm phim thất bại'
+            })
+          }
         })
-      },
-      error: (err) => {
-        console.log(err);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Thêm mới phim',
-          detail: 'Thêm phim thất bại'
-        })
-      }
-    })
-    console.log(data);
+        console.log(data);
   }
 
   onDelete() {
-    this.cinemaService.deleteCinema(this.selectedValue).subscribe(
-      (data) => {
-        this.getCinemas();
-        this.deleteModal.hide();
-      }
-    )
+    this.cinemaService.deleteCinema(this.selectedValue).subscribe((data) => {
+      this.getCinemas();
+      this.deleteModal.hide();
+    });
   }
 
   openDeleteModal(id: number | undefined) {

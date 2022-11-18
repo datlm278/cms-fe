@@ -75,6 +75,9 @@
               <a class="material-symbols-outlined mx-2" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(cinema.id)">
                 delete
               </a>
+              <a class="material-symbols-outlined mx-2" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(cinema.id)">
+                more_horiz
+              </a>
             </td>
           </tr>
         </tbody>
@@ -90,7 +93,7 @@
     </div>
   </div>
 
-<!--   Add modal-->
+<!--   Add -->
   <div id="add-modal" class="modal fade" tabindex="-1" aria-labelledby="add-modal" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -205,12 +208,15 @@
               </p>
             </div>
             <div class="py-2">
-              <label for="image">Hình ảnh</label>
+              <label for="poster">Hình ảnh</label>
               <input
                 type="file"
-                id="image"
-                name="image"
+                id="poster"
+                name="poster"
+                accept="image/*"
                 class="form-control"
+                (change)="onSelectedFile($event)"
+                [(ngModel)]="cinema.poster"
               />
             </div>
 <!--            <div class="py-2 form-switch">-->
@@ -255,20 +261,20 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Delete -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you sure to delete this item?
+          Bạn có chắc chắn muốn xoá phim đã chọn?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onDelete()">Confirm</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onDelete()">Xác nhận</button>
         </div>
       </div>
     </div>
