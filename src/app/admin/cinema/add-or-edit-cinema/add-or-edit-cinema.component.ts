@@ -83,8 +83,7 @@ export class AddOrEditCinemaComponent implements OnInit {
         this.matDialogRef.close('save');
       },
       (error) => {
-        alert("Error while creating employee!")
-        console.log(error.message());
+        alert("Error while creating cinema!")
       }
     )
   }

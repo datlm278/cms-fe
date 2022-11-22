@@ -57,21 +57,6 @@ export class CinemaComponent implements OnInit {
     })
   }
 
-  onSelectedFile(event: any) {
-    if (event.target.files) {
-      const reader = new FileReader();
-      this.cinemaFile = event.target.files[0];
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-      }
-    }
-  }
-
-  onSubmit(data: Cinema, form: NgForm) {
-        console.log(data);
-  }
-
   onDelete() {
     this.cinemaService.deleteCinema(this.selectedValue).subscribe((data) => {
       this.getCinemas();
