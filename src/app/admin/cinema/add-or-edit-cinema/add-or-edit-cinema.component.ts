@@ -1,21 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Cinema} from "../../../models/cinema";
 import {Producer} from "../../../models/producer";
 import {CinemaType} from "../../../models/cinemaType";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProducerService} from "../../../services/producer.service";
 import {CinemaTypeService} from "../../../services/cinema-type.service";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NgForm} from "@angular/forms";
 import {FileHandle} from "../../../models/file-handle.model";
 import {DomSanitizer} from "@angular/platform-browser";
 import {CinemaService} from "../../../services/cinema.service";
+import {ImageService} from "../../../services/image.service";
+import {BaseAddOrUpdateDialogComponent} from "../../../base/management_list.base";
+
+interface AddOrEditCinemaData {
+  cinema: Cinema;
+  producers: Producer[];
+  cinemaTypes: CinemaType[];
+}
 
 @Component({
   selector: 'app-add-or-edit-cinema',
   templateUrl: './add-or-edit-cinema.component.html',
   styleUrls: ['./add-or-edit-cinema.component.css']
 })
+
 export class AddOrEditCinemaComponent implements OnInit {
 
   title: String = "Thêm mới phim";
@@ -24,7 +33,7 @@ export class AddOrEditCinemaComponent implements OnInit {
   cinemaTypes: CinemaType[] = [];
 
   cinema: Cinema = {
-    cinemaImage: [],
+    images: [],
     cinemaTypeId: 0,
     producerId: 0,
     cinemaType: '',
@@ -39,14 +48,20 @@ export class AddOrEditCinemaComponent implements OnInit {
 
   constructor(private producerService: ProducerService,
               private cinemaTypeService: CinemaTypeService,
-              private matDialogRef: MatDialogRef<AddOrEditCinemaComponent>,
+              private matDialogRef: MatDialogRef<AddOrEditCinemaData>,
               private cinemaService: CinemaService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private imageService: ImageService,
+              @Inject(MAT_DIALOG_DATA) public updateCinema: Cinema) {
   }
 
   ngOnInit(): void {
     this.getProducers();
     this.getCinemaTypes();
+    if (this.updateCinema) {
+      this.action = 'Cập nhật'
+      this.title = 'Cập nhật phim'
+    }
   }
 
   private getCinemaTypes(): void {
@@ -95,11 +110,11 @@ export class AddOrEditCinemaComponent implements OnInit {
       new Blob([JSON.stringify(cinema)], {type: 'application/json'})
     );
 
-    for (let i = 0; i< cinema.cinemaImage.length; i++) {
+    for (let i = 0; i< cinema.images.length; i++) {
       formData.append(
         'poster',
-        cinema.cinemaImage[i].file,
-        cinema.cinemaImage[i].file.name
+        cinema.images[i].file,
+        cinema.images[i].file.name
       );
     }
     return formData;
@@ -114,8 +129,15 @@ export class AddOrEditCinemaComponent implements OnInit {
           window.URL.createObjectURL(file)
         )
       }
-
-      this.cinema.cinemaImage.push(fileHandle);
+      this.cinema.images.push(fileHandle);
     }
+  }
+
+  close(): void {
+    this.matDialogRef.close();
+  }
+
+  onRemoveImages(i: number) {
+    this.cinema.images.splice(i, 1)
   }
 }

@@ -2,7 +2,7 @@
 
   <div class="d-flex justify-content-between">
     <div class="d-flex gap-2">
-      <button mat-stroked-button color="warn" class="mat-button" (click)="openDialog()">
+      <button mat-stroked-button color="warn" class="mat-button" (click)="openCreateDialog()">
         <mat-icon>add</mat-icon>
         Thêm mới
       </button>
@@ -34,6 +34,7 @@
             <th class="text-secondary">Thời gian tạo</th>
             <th class="text-secondary">Thời gian cập nhật</th>
             <th class="text-secondary">Trạng thái</th>
+            <th class="text-secondary">Hình ảnh</th>
             <th class="text-secondary">Hành động</th>
           </tr>
         </thead>
@@ -65,35 +66,21 @@
               </div>
             </td>
             <td>
-              <button mat-icon-button color="primary" class="mat-button">
+              <button mat-icon-button color="primary" class="mat-button" (click)="openImageDialog(cinema)">
+                <mat-icon>images</mat-icon>
+              </button>
+            </td>
+            <td>
+              <button mat-icon-button color="primary" class="mat-button" (click)="openUpdateDialog(cinema.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" class="mat-button">
+              <button mat-icon-button color="warn" class="mat-button" (click)="openDeleteDialog(cinema.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- Delete -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Bạn có chắc chắn muốn xoá phim đã chọn?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onDelete()">Xác nhận</button>
-        </div>
-      </div>
     </div>
   </div>
 </div>

@@ -19,6 +19,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import { AddOrEditCinemaComponent } from './admin/cinema/add-or-edit-cinema/add-or-edit-cinema.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatGridListModule} from '@angular/material/grid-list';
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ImagesDialogComponent } from './admin/cinema/images-dialog/images-dialog.component';
+import {DeleteDialogComponent} from "./admin/delete-dialog/delete-dialog.component";
 
 @NgModule({
   declarations: [
@@ -31,21 +35,25 @@ import {MatDialogModule} from "@angular/material/dialog";
     CinemaTypeComponent,
     DashboardComponent,
     AddOrEditCinemaComponent,
+    ImagesDialogComponent,
+    DeleteDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        BrowserAnimationsModule,
-        MatTableModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatDialogModule,
+    MatGridListModule,
+    ScrollingModule
+  ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

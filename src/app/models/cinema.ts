@@ -12,5 +12,5 @@ export interface Cinema {
     cinemaType: string,
     producerId: number,
     producerName: string,
-    cinemaImage: FileHandle[]
+    images: FileHandle[]
 }
