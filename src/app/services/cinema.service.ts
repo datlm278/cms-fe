@@ -18,10 +18,7 @@ export class CinemaService {
     return this.http.get<Cinema[]>(`${this.host}/${this.rest}/cinema/find-all`);
   }
 
-  public insertCinema(data: Cinema, file: any){
-    const formData = new FormData();
-    formData.append('cinema', JSON.stringify(data))
-    formData.append('poster', file, file.name);
+  public createCinema(formData: FormData){
     return this.http.post(`${this.host}/${this.rest}/cinema/create`, formData, {
       responseType: "text"
     });

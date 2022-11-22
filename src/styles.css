@@ -1,40 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "material-symbols";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-:root {
-  font-size: 16px;
-}
-
-.ss-card {
-  background: #fcfcfc;
-  box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.3);
-  border-radius: 0px 35px;
-}
-
-.btn-primary {
-  background: #01579b !important;
-}
-
-.btn-icon {
-  display: inline-flex;
-  vertical-align: middle !important;
-}
-
-.text-primary {
-  color: #01579b !important;
-}
-
-.btn-round {
-  border-radius: 1.5rem !important;
-  min-width: 15rem;
-  display: flex;
-  justify-content: center;
-}
-
-.btn {
-  border-radius: 0.25rem;
-}
-
-body {
-  overflow-x: hidden;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

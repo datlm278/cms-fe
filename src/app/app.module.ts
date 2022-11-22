@@ -10,9 +10,15 @@ import { CinemaComponent } from './admin/cinema/cinema.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import {CinemaTypeComponent} from "./admin/cinema-type/cinema-type.component";
-import {HttpClientModule, HttpClient } from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ConfirmationService, MessageService} from "primeng/api";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from "@angular/material/table";
+import { AddOrEditCinemaComponent } from './admin/cinema/add-or-edit-cinema/add-or-edit-cinema.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -24,15 +30,23 @@ import {ConfirmationService, MessageService} from "primeng/api";
     HomeComponent,
     CinemaTypeComponent,
     DashboardComponent,
+    AddOrEditCinemaComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  providers: [HttpClientModule, MessageService, ConfirmationService],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatDialogModule
+    ],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
