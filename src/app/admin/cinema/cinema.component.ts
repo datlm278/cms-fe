@@ -50,7 +50,6 @@ export class CinemaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCinemas();
-
   }
 
   private getCinemas(): void {
@@ -81,9 +80,8 @@ export class CinemaComponent implements OnInit {
 
   openUpdateDialog(id: number | undefined) {
     this.cinemaService.getCinemaById(id).subscribe((res) => {
-      console.log("getCinemaById", res)
       this.cinema = res;
-      console.log("data", this.cinema)
+      console.log("getCinemaById", res)
       this.producerService.getAllProducers().subscribe((res) => {
         this.producers = res
         console.log("data-producers", this.producers)
@@ -91,10 +89,10 @@ export class CinemaComponent implements OnInit {
           this.cinemaTypes = res
           console.log("data-cinemaTypes", this.producers)
           setTimeout(() => {
-            const date = new Date(this.cinema.releaseDate);
-            let releaseDate = formatDate(date, 'MM/dd/yyyy', 'en-US')
-            console.log(releaseDate)
-            const dialogData = new AddOrEditCinemaData(this.cinema, this.producers, this.cinemaTypes, this.cinema.images, releaseDate)
+            // const date = new Date(this.cinema.releaseDate);
+            // let releaseDate = formatDate(date, 'MM/dd/yyyy', 'en-US')
+            // console.log(releaseDate)
+            const dialogData = new AddOrEditCinemaData(this.cinema, this.producers, this.cinemaTypes, this.cinema.images)
             this.dialog.open(
               AddOrEditCinemaComponent,
               {
@@ -111,7 +109,6 @@ export class CinemaComponent implements OnInit {
     })
   }
 
-
   deleteCinema() {
     this.cinemaService.deleteCinema(this.selectedValue)
       .subscribe(
@@ -125,18 +122,18 @@ export class CinemaComponent implements OnInit {
       )
   }
 
-  getCinemaById(id: number | undefined): Cinema {
-    this.cinemaService.getCinemaById(id).subscribe({
-      next: (data) => {
-        this.cinema = data
-        return data;
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    });
-    return this.cinema;
-  }
+  // getCinemaById(id: number | undefined): Cinema {
+  //   this.cinemaService.getCinemaById(id).subscribe({
+  //     next: (data) => {
+  //       this.cinema = data
+  //       return data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   });
+  //   return this.cinema;
+  // }
 
   openImageDialog(cinema: Cinema) {
     console.log(cinema)

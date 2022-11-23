@@ -21,10 +21,13 @@
       </div>
       <div class="mb-3">
         <label for="releaseDate" class="form-label">Ngày khởi chiếu</label>
-        <input type="date" class="form-control" id="releaseDate"
+        <input type="date" class="form-control"
+               id="releaseDate"
                #releaseDate="ngModel"
-               [(ngModel)]="cinema.releaseDate"
+               [ngModel]="cinema.releaseDate | date: 'dd/MM/yyyy'"
+               value="{{cinema.releaseDate | date: 'dd/MM/yyyy'}}"
                name="releaseDate" required>
+        <label>{{ cinema.releaseDate | date: 'dd/MM/yyyy'}}</label>
         <div *ngIf="releaseDate.invalid && (releaseDate.dirty || releaseDate.touched)">
           <div *ngIf="releaseDate.errors?.['required']">
             <span class="is-invalid form-text" style="color: red">Vui lòng chọn ngày khởi chiếu</span>

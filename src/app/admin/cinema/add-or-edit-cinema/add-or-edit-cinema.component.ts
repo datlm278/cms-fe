@@ -19,8 +19,7 @@ export class AddOrEditCinemaData {
     public cinema: Cinema,
     public producers: Producer[],
     public cinemaTypes: CinemaType[],
-    public images: FileHandle[],
-    public releaseDate: string) {
+    public images: FileHandle[]) {
   }
 }
 
@@ -71,7 +70,7 @@ export class AddOrEditCinemaComponent implements OnInit {
       this.cinemaTypes = this.updateCinemaData.cinemaTypes;
       this.cinema = this.updateCinemaData.cinema;
       this.images = <FileHandle[]><unknown>this.imageService.getImages(this.cinema);
-      this.cinema.releaseDate = this.updateCinemaData.releaseDate;
+      // this.cinema.releaseDate = this.updateCinemaData.releaseDate;
     }
   }
 

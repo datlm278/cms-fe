@@ -23,6 +23,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import { ImagesDialogComponent } from './admin/cinema/images-dialog/images-dialog.component';
 import {DeleteDialogComponent} from "./admin/delete-dialog/delete-dialog.component";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import {DeleteDialogComponent} from "./admin/delete-dialog/delete-dialog.compone
     MatTableModule,
     MatDialogModule,
     MatGridListModule,
-    ScrollingModule
+    ScrollingModule,
+    MatInputModule,
+    MatDatepickerModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
