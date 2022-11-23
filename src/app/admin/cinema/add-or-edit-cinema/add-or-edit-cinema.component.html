@@ -115,6 +115,11 @@
 </div>
 
 <div mat-dialog-actions>
-  <button [disabled]="form.form.invalid" type="submit" mat-raised-button color="primary" (click)="createCinema(form)">{{action}}</button>
+  <button [disabled]="form.form.invalid"
+          type="submit"
+          mat-raised-button color="primary"
+          (click)="createOrUpdateCinema(form)">
+    {{action}}
+  </button>
   <button mat-dialog-close="" mat-raised-button color="warn" style="margin-left: 10px" (click)="close()">Cancel</button>
 </div>

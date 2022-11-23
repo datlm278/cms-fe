@@ -11,12 +11,17 @@ import {FileHandle} from "../../../models/file-handle.model";
 import {DomSanitizer} from "@angular/platform-browser";
 import {CinemaService} from "../../../services/cinema.service";
 import {ImageService} from "../../../services/image.service";
-import {BaseAddOrUpdateDialogComponent} from "../../../base/management_list.base";
+import {DatePipe, formatDate} from "@angular/common";
 
-interface AddOrEditCinemaData {
-  cinema: Cinema;
-  producers: Producer[];
-  cinemaTypes: CinemaType[];
+
+export class AddOrEditCinemaData {
+  constructor(
+    public cinema: Cinema,
+    public producers: Producer[],
+    public cinemaTypes: CinemaType[],
+    public images: FileHandle[],
+    public releaseDate: string) {
+  }
 }
 
 @Component({
@@ -31,7 +36,6 @@ export class AddOrEditCinemaComponent implements OnInit {
   action: String = 'Thêm mới';
   producers: Producer[] = [];
   cinemaTypes: CinemaType[] = [];
-
   cinema: Cinema = {
     images: [],
     cinemaTypeId: 0,
@@ -44,6 +48,7 @@ export class AddOrEditCinemaComponent implements OnInit {
     releaseDate: '',
     updateTime: ''
   };
+  images: FileHandle[] | undefined;
 
 
   constructor(private producerService: ProducerService,
@@ -52,15 +57,21 @@ export class AddOrEditCinemaComponent implements OnInit {
               private cinemaService: CinemaService,
               private sanitizer: DomSanitizer,
               private imageService: ImageService,
-              @Inject(MAT_DIALOG_DATA) public updateCinema: Cinema) {
+              @Inject(MAT_DIALOG_DATA) public updateCinemaData: AddOrEditCinemaData) {
+
   }
 
   ngOnInit(): void {
     this.getProducers();
     this.getCinemaTypes();
-    if (this.updateCinema) {
+    if (this.updateCinemaData) {
       this.action = 'Cập nhật'
       this.title = 'Cập nhật phim'
+      this.producers = this.updateCinemaData.producers;
+      this.cinemaTypes = this.updateCinemaData.cinemaTypes;
+      this.cinema = this.updateCinemaData.cinema;
+      this.images = <FileHandle[]><unknown>this.imageService.getImages(this.cinema);
+      this.cinema.releaseDate = this.updateCinemaData.releaseDate;
     }
   }
 
@@ -88,17 +99,37 @@ export class AddOrEditCinemaComponent implements OnInit {
     )
   }
 
-  createCinema(form: NgForm) {
+  createOrUpdateCinema(form: NgForm) {
+    if (!this.updateCinemaData) {
+      this.createCinema(form);
+    } else {
+      this.updateCinema(form);
+    }
+  }
 
+  private updateCinema(form: NgForm) {
     const cinemaData = this.prepareFormData(this.cinema);
+    this.cinemaService.updateCinema(cinemaData, this.updateCinemaData.cinema.id)
+      .subscribe({
+        next:(res)=>{
+          form.reset()
+          this.matDialogRef.close('update')
+        },
+        error:()=>{
+          alert("Cập nhật phim thất bại")
+        }
+      })
+  }
 
+  private createCinema(form: NgForm) {
+    const cinemaData = this.prepareFormData(this.cinema);
     this.cinemaService.createCinema(cinemaData).subscribe(
       (response) => {
         form.reset();
         this.matDialogRef.close('save');
       },
       (error) => {
-        alert("Error while creating cinema!")
+        alert("Thêm mới phim thất bại")
       }
     )
   }
@@ -112,7 +143,7 @@ export class AddOrEditCinemaComponent implements OnInit {
 
     for (let i = 0; i< cinema.images.length; i++) {
       formData.append(
-        'poster',
+        'images',
         cinema.images[i].file,
         cinema.images[i].file.name
       );

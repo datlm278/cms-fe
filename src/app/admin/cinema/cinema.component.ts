@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Cinema} from 'src/app/models/cinema';
 import {CinemaService} from '../../services/cinema.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {MatDialog} from "@angular/material/dialog";
-import {AddOrEditCinemaComponent} from "./add-or-edit-cinema/add-or-edit-cinema.component";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {AddOrEditCinemaComponent, AddOrEditCinemaData} from "./add-or-edit-cinema/add-or-edit-cinema.component";
 import {ImagesDialogComponent} from "./images-dialog/images-dialog.component";
 import {map} from "rxjs";
 import {ImageService} from "../../services/image.service";
@@ -11,6 +11,9 @@ import {ConfirmDialogModel, DeleteDialogComponent} from "../delete-dialog/delete
 import {ProducerService} from "../../services/producer.service";
 import {CinemaTypeService} from "../../services/cinema-type.service";
 import {Producer} from "../../models/producer";
+import {CinemaType} from "../../models/cinemaType";
+import {formatDate} from "@angular/common";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-cinema',
@@ -20,7 +23,6 @@ import {Producer} from "../../models/producer";
 export class CinemaComponent implements OnInit {
 
   cinemas: Cinema[] = [];
-
   private selectedValue: number | undefined = -1;
   private cinema: Cinema = {
     cinemaType: "",
@@ -34,15 +36,15 @@ export class CinemaComponent implements OnInit {
     releaseDate: "",
     updateTime: ""
   };
-  private data: Cinema | undefined;
-  private producer: Producer[] = [];
+  private producers: Producer[] = [];
+  private cinemaTypes: CinemaType[] = [];
 
   constructor(
     private cinemaService: CinemaService,
     public dialog: MatDialog,
     private imageService: ImageService,
     private producerService: ProducerService,
-    private cinemaTypeService: CinemaTypeService
+    private cinemaTypeService: CinemaTypeService,
   ) {
   }
 
@@ -80,38 +82,35 @@ export class CinemaComponent implements OnInit {
   openUpdateDialog(id: number | undefined) {
     this.cinemaService.getCinemaById(id).subscribe((res) => {
       console.log("getCinemaById", res)
-      this.data = res;
+      this.cinema = res;
+      console.log("data", this.cinema)
       this.producerService.getAllProducers().subscribe((res) => {
-        this.producer = res
-        setTimeout(() => {
-          const updateCinemaDialog = this.dialog.open(
-            AddOrEditCinemaComponent,
-            {
-              data: {
-                cinema: this.data,
-                producer: this.producer
-              },
-              disableClose: true,
-            }
-          );
-
-          updateCinemaDialog.afterClosed().subscribe((data) => {
-            if (!data) return
-            this.data = data
-            this.cinemaService.updateCinema(this.prepareFormData(<Cinema>this.data), this.data?.id)
-              .subscribe
-              ((res) => {
-                  console.log(res)
+        this.producers = res
+        console.log("data-producers", this.producers)
+        this.cinemaTypeService.getAllCinemaType().subscribe((res) => {
+          this.cinemaTypes = res
+          console.log("data-cinemaTypes", this.producers)
+          setTimeout(() => {
+            const date = new Date(this.cinema.releaseDate);
+            let releaseDate = formatDate(date, 'MM/dd/yyyy', 'en-US')
+            console.log(releaseDate)
+            const dialogData = new AddOrEditCinemaData(this.cinema, this.producers, this.cinemaTypes, this.cinema.images, releaseDate)
+            this.dialog.open(
+              AddOrEditCinemaComponent,
+              {
+                width: "30%",
+                data: dialogData
+              }).afterClosed().subscribe(value => {
+                if (value === 'update') {
                   this.getCinemas();
-                },
-                error => {
-                  console.log(error)
-              })
-          })
-        });
+                }
+            })
+          });
+        })
       })
     })
   }
+
 
   deleteCinema() {
     this.cinemaService.deleteCinema(this.selectedValue)
@@ -157,7 +156,7 @@ export class CinemaComponent implements OnInit {
     const dialogData = new ConfirmDialogModel("Xác nhận xoá", message);
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      maxWidth: "400px",
+      maxWidth: "700px",
       data: dialogData
     });
 
@@ -168,22 +167,5 @@ export class CinemaComponent implements OnInit {
         this.getCinemas();
       }
     });
-  }
-
-  prepareFormData(cinema: Cinema): FormData {
-    const formData = new FormData();
-    formData.append(
-      'cinema',
-      new Blob([JSON.stringify(cinema)], {type: 'application/json'})
-    );
-
-    for (let i = 0; i < cinema.images.length; i++) {
-      formData.append(
-        'poster',
-        cinema.images[i].file,
-        cinema.images[i].file.name
-      );
-    }
-    return formData;
   }
 }
