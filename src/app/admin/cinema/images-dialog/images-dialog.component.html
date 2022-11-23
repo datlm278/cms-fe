@@ -1,0 +1,5 @@
+<mat-grid-list cols="1" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let file of data.images">
+    <img [src]="file.url" alt="images" width="100%" height="100%">
+  </mat-grid-tile>
+</mat-grid-list>

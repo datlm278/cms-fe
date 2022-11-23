@@ -1,0 +1,128 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <form novalidate
+        #form="ngForm"
+        style="overflow: hidden; height: 100%;"
+        class="row justify-content-md-center">
+    <div class="scroll-object">
+      <div class="mb-3">
+        <label for="cinemaName" class="form-label">Tên phim</label>
+        <input type="text"
+               class="form-control"
+               id="cinemaName"
+               #cinemaName="ngModel"
+               [(ngModel)]="cinema.name"
+               name="name" required>
+        <div *ngIf="cinemaName.invalid && (cinemaName.dirty || cinemaName.touched)">
+          <div *ngIf="cinemaName.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng nhập tên phim</span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="releaseDate" class="form-label">Ngày khởi chiếu</label>
+        <input type="date" class="form-control"
+               id="releaseDate"
+               #releaseDate="ngModel"
+               [ngModel]="cinema.releaseDate | date: 'dd/MM/yyyy'"
+               value="{{cinema.releaseDate | date: 'dd/MM/yyyy'}}"
+               name="releaseDate" required>
+        <label>{{ cinema.releaseDate | date: 'dd/MM/yyyy'}}</label>
+        <div *ngIf="releaseDate.invalid && (releaseDate.dirty || releaseDate.touched)">
+          <div *ngIf="releaseDate.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng chọn ngày khởi chiếu</span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="director" class="form-label">Đạo diễn</label>
+        <input type="text" class="form-control" id="director"
+               #director="ngModel"
+               [(ngModel)]="cinema.director"
+               name="director" required>
+        <div *ngIf="director.invalid && (director.dirty || director.touched)">
+          <div *ngIf="director.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng nhập tên đạo diễn</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="producer" class="form-label">Nhà sản xuất</label>
+        <select id="producer" class="form-select"
+                [(ngModel)]="cinema.producerId"
+                name="producerId"
+                #producer="ngModel" required>
+          <option
+            *ngFor="let producer of producers"
+            [value]="producer.id"
+          >
+            {{ producer.name }}
+          </option>
+        </select>
+        <div *ngIf="producer.invalid &&(producer.dirty || producer.touched)">
+          <div *ngIf="producer.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng chọn hãng sản xuất</span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="cinemaType" class="form-label">Loại phim</label>
+        <select id="cinemaType" class="form-select"
+                [(ngModel)]="cinema.cinemaTypeId"
+                name="cinemaTypeId"
+                #cinemaType="ngModel" required>
+          <option *ngFor="let cinemaType of cinemaTypes" [value]="cinemaType.id">
+            {{ cinemaType.name }}
+          </option>
+        </select>
+        <div *ngIf="cinemaType.invalid && (cinemaType.dirty || cinemaType.touched)">
+          <div *ngIf="cinemaType.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng chọn loại phim</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div>
+          <label for="image" class="form-label">Hình ảnh</label>
+          <input type="file" class="form-control" id="image" value="select"
+                 (change)="onSelectedFile($event)"
+                 name="image" required>
+        </div>
+        <div *ngFor="let file of cinema.images; let i = index;">
+          <div style="position: relative">
+            <span class="btn-remove-image" (click)="onRemoveImages(i)">x</span>
+            <img [src]="file.url" alt="preview" width="100%" height="300px" style="margin-top: 10px">
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="status" class="form-label">Trạng thái</label>
+        <select id="status" class="form-select"
+                [(ngModel)]="cinema.status"
+                name="status"
+                #status="ngModel" required>
+          <option value="1">Đang chiếu</option>
+          <option value="0">Dừng chiếu</option>
+        </select>
+        <div *ngIf="status.invalid && (status.dirty || status.touched)">
+          <div *ngIf="status.errors?.['required']">
+            <span class="is-invalid form-text" style="color: red">Vui lòng chọn trạng thái của phim</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button [disabled]="form.form.invalid"
+          type="submit"
+          mat-raised-button color="primary"
+          (click)="createOrUpdateCinema(form)">
+    {{action}}
+  </button>
+  <button mat-dialog-close="" mat-raised-button color="warn" style="margin-left: 10px" (click)="close()">Cancel</button>
+</div>

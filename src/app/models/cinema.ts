@@ -1,4 +1,6 @@
-export interface cinema {
+import {FileHandle} from "./file-handle.model";
+
+export interface Cinema {
     id?: number,
     name: string,
     releaseDate: string,
@@ -6,6 +8,9 @@ export interface cinema {
     status?: number,
     createTime: string,
     updateTime: string,
-    cinemaTypeId?: number
-    producerId?: number
+    cinemaTypeId: number
+    cinemaType: string,
+    producerId: number,
+    producerName: string,
+    images: FileHandle[]
 }
