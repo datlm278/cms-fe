@@ -109,19 +109,6 @@ export class CinemaComponent implements OnInit {
     })
   }
 
-  deleteCinema() {
-    this.cinemaService.deleteCinema(this.selectedValue)
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.getCinemas();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message)
-        }
-      )
-  }
-
   openImageDialog(cinema: Cinema) {
     console.log(cinema)
     this.dialog.open(ImagesDialogComponent, {
@@ -146,7 +133,16 @@ export class CinemaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult == true) {
-        this.deleteCinema();
+        this.cinemaService.deleteCinema(this.selectedValue)
+          .subscribe(
+            (response) => {
+              console.log(response);
+              this.getCinemas();
+            },
+            (error: HttpErrorResponse) => {
+              alert(error.message)
+            }
+          )
       } else {
         this.getCinemas();
       }

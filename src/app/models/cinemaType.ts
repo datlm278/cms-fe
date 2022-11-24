@@ -1,8 +1,8 @@
 export interface CinemaType {
-  id: number,
+  id?: number,
   name: string,
   description: string,
-  status?: boolean,
+  status: number,
   createTime: string,
   updateTime: string
 }

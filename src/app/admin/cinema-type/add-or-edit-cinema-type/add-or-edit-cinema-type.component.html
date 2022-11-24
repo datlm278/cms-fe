@@ -16,7 +16,7 @@
       <div *ngIf="typeName.invalid && (typeName.dirty || typeName.touched)">
         <div *ngIf="typeName.errors?.['required']">
           <span class="is-invalid form-text" style="color: red"
-            >Vui lòng nhập loại phim</span
+          >Vui lòng nhập loại phim</span
           >
         </div>
       </div>
@@ -29,7 +29,7 @@
         #typeDescription="ngModel"
         [(ngModel)]="cinemaType.description"
         id="cinemaTypeDescription"
-        rows="5"
+        rows="10"
         maxlength="1000"
         required
       ></textarea>
@@ -41,19 +41,28 @@
       >
         <div *ngIf="typeDescription.errors?.['required']">
           <span class="is-invalid form-text" style="color: red"
-            >Vui lòng nhập mô tả loại phim</span
+          >Vui lòng nhập mô tả loại phim</span
           >
         </div>
       </div>
     </div>
     <div class="mb-3">
         <mat-slide-toggle
-          (change)="onChangeStatus($event)"
+          (change)="cinemaType.status = +$event.checked"
+          [checked]="cinemaType.status === 1"
           name="status"
-          [(ngModel)]="cinemaType.status"
           [color]="'primary'">
           Trạng thái
         </mat-slide-toggle>
+<!--      <div class="form-check form-switch">-->
+<!--        <input class="form-check-input"-->
+<!--               name="status"-->
+<!--               (change)="onChangeStatus($event)"-->
+<!--               [ngModel]="cinemaType.status"-->
+<!--               type="checkbox"-->
+<!--               id="status" checked>-->
+<!--        <label class="form-check-label" for="status">Trạng thái</label>-->
+<!--      </div>-->
     </div>
   </form>
 </div>
@@ -64,7 +73,7 @@
     type="submit"
     mat-raised-button
     color="primary"
-    (click)="createOrUpdateCinemaType(form)"
+    (click)="createOrUpdateCinemaType(cinemaType, form)"
   >
     {{ action }}
   </button>

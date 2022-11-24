@@ -8,6 +8,7 @@ import {FileHandle} from "../../../models/file-handle.model";
 import {CinemaTypeService} from "../../../services/cinema-type.service";
 import {AddOrEditCinemaData} from "../../cinema/add-or-edit-cinema/add-or-edit-cinema.component";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {formatMoment} from "ngx-bootstrap/chronos/format";
 
 export class AddOrEditCinemaTypeData {
   constructor(
@@ -25,7 +26,7 @@ export class AddOrEditCinemaTypeComponent implements OnInit {
   title: string = "Thêm mới loại phim";
   action: string = "Thêm mới";
   cinemaType: CinemaType = {
-    id: 0,
+    status: 0,
     name: '',
     description: '',
     createTime: '',
@@ -35,35 +36,35 @@ export class AddOrEditCinemaTypeComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddOrEditCinemaTypeComponent>,
     private cinemaTypeService: CinemaTypeService,
-    @Inject(MAT_DIALOG_DATA) public updateCinemaTypeData: AddOrEditCinemaTypeData) { }
+    @Inject(MAT_DIALOG_DATA) public cinemaTypeData: AddOrEditCinemaTypeData) { }
 
   ngOnInit(): void {
-    if (this.updateCinemaTypeData) {
-      this.title = "Cập nhật"
+    if (this.cinemaTypeData) {
+      this.action = "Cập nhật"
       this.title = "Cập nhật loại phim"
-      this.cinemaType = this.updateCinemaTypeData.cinemaType;
+      this.cinemaType = this.cinemaTypeData.cinemaType;
     }
   }
 
-  createOrUpdateCinemaType(form: NgForm) {
-    // if (!this.updateCinemaTypeData) {
-    //   this.createCinemaType(form);
-    // } else {
-    //   this.updateCinemaType(form);
-    // }
-    console.log(form.value)
+  createOrUpdateCinemaType(cinemaType: CinemaType, form: NgForm) {
+    if (!this.cinemaTypeData) {
+      this.createCinemaType(cinemaType, form);
+    } else {
+      this.updateCinemaType(cinemaType, form);
+    }
+    console.log(this.cinemaType)
   }
 
   close() {
     this.dialogRef.close();
   }
 
-  private createCinemaType(form: NgForm) {
-    this.cinemaTypeService.createCinemaType(form.value).subscribe(
+  private createCinemaType(cinemaType: CinemaType, form: NgForm) {
+    this.cinemaTypeService.createCinemaType(cinemaType).subscribe(
       (response) => {
         form.reset();
         this.dialogRef.close('save')
-        console.log(response)
+        console.log("create-cinema-type",response)
       },
       (error) => {
         alert('Thêm mới loại phim thất bại');
@@ -72,14 +73,25 @@ export class AddOrEditCinemaTypeComponent implements OnInit {
     )
   }
 
-  private updateCinemaType(form: NgForm) {
-
+  private updateCinemaType(cinemaType: CinemaType, form: NgForm) {
+    this.cinemaTypeService.updateCinemaType(cinemaType, cinemaType.id).subscribe(
+      (response) => {
+        form.reset();
+        this.dialogRef.close('update')
+        console.log("create-cinema-type",response)
+      },
+      (error) => {
+        alert('Cập nhật loại phim thất bại');
+        console.log(error)
+      }
+    )
   }
 
   onChangeStatus($event: MatSlideToggleChange) {
     if ($event.checked) {
       this.cinemaType.status = 1
+    } else {
+      this.cinemaType.status = 0
     }
-    return this.cinemaType.status = 0
   }
 }

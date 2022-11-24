@@ -25,4 +25,18 @@ export class CinemaTypeService {
     });
   }
 
+  public deleteCinemaType(id: number | undefined) {
+    return this.http.post(`${this.host}/${this.rest}/cinema-type/delete?id=${id}`, null, {
+      responseType: "text"});
+  }
+
+  public getCinemaTypeById(id: number | undefined): Observable<CinemaType> {
+    return this.http.get<CinemaType>(`${this.host}/${this.rest}/cinema-type/find-by-id?id=${id}`);
+  }
+
+  public updateCinemaType(cinemaType: CinemaType, id: number | undefined){
+    return this.http.post(`${this.host}/${this.rest}/cinema-type/update?id=${id}`, cinemaType, {
+      responseType: "text"
+    });
+  }
 }
