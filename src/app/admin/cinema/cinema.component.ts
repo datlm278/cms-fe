@@ -122,19 +122,6 @@ export class CinemaComponent implements OnInit {
       )
   }
 
-  // getCinemaById(id: number | undefined): Cinema {
-  //   this.cinemaService.getCinemaById(id).subscribe({
-  //     next: (data) => {
-  //       this.cinema = data
-  //       return data;
-  //     },
-  //     error: (err) => {
-  //       console.log(err)
-  //     }
-  //   });
-  //   return this.cinema;
-  // }
-
   openImageDialog(cinema: Cinema) {
     console.log(cinema)
     this.dialog.open(ImagesDialogComponent, {

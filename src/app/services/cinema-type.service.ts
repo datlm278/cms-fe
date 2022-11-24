@@ -18,4 +18,11 @@ export class CinemaTypeService {
   public getAllCinemaType(): Observable<CinemaType[]> {
     return this.http.get<CinemaType[]>(`${this.host}/${this.rest}/cinema-type/find-all`);
   }
+
+  public createCinemaType(cinemaType: CinemaType){
+    return this.http.post(`${this.host}/${this.rest}/cinema-type/create`, cinemaType, {
+      responseType: "text"
+    });
+  }
+
 }

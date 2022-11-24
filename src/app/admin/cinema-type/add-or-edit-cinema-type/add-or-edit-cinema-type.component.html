@@ -1,0 +1,79 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<div mat-dialog-content>
+  <form #form="ngForm" class="row justify-content-md-center">
+    <div class="mb-3">
+      <label for="cinemaTypeName" class="form-label"> Loại phim </label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        #typeName="ngModel"
+        [(ngModel)]="cinemaType.name"
+        id="cinemaTypeName"
+        required
+      />
+      <div *ngIf="typeName.invalid && (typeName.dirty || typeName.touched)">
+        <div *ngIf="typeName.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red"
+            >Vui lòng nhập loại phim</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="cinemaTypeDescription" class="form-label">Mô tả</label>
+      <textarea
+        name="description"
+        class="form-control"
+        #typeDescription="ngModel"
+        [(ngModel)]="cinemaType.description"
+        id="cinemaTypeDescription"
+        rows="5"
+        maxlength="1000"
+        required
+      ></textarea>
+      <div
+        *ngIf="
+          typeDescription.invalid &&
+          (typeDescription.dirty || typeDescription.touched)
+        "
+      >
+        <div *ngIf="typeDescription.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red"
+            >Vui lòng nhập mô tả loại phim</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+        <mat-slide-toggle
+          (change)="onChangeStatus($event)"
+          name="status"
+          [(ngModel)]="cinemaType.status"
+          [color]="'primary'">
+          Trạng thái
+        </mat-slide-toggle>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    [disabled]="form.form.invalid"
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="createOrUpdateCinemaType(form)"
+  >
+    {{ action }}
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    style="margin-left: 10px"
+    (click)="close()"
+  >
+    Cancel
+  </button>
+</div>

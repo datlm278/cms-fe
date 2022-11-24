@@ -1,10 +1,7 @@
 <h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
-  <form novalidate
-        #form="ngForm"
-        style="overflow: hidden; height: 100%;"
+  <form #form="ngForm"
         class="row justify-content-md-center">
-    <div class="scroll-object">
       <div class="mb-3">
         <label for="cinemaName" class="form-label">Tên phim</label>
         <input type="text"
@@ -113,7 +110,6 @@
           </div>
         </div>
       </div>
-    </div>
   </form>
 </div>
 
@@ -124,5 +120,5 @@
           (click)="createOrUpdateCinema(form)">
     {{action}}
   </button>
-  <button mat-dialog-close="" mat-raised-button color="warn" style="margin-left: 10px" (click)="close()">Cancel</button>
+  <button mat-raised-button color="warn" style="margin-left: 10px" (click)="close()">Cancel</button>
 </div>
