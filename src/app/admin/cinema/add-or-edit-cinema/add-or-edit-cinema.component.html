@@ -83,9 +83,13 @@
       <div class="mb-3">
         <div>
           <label for="image" class="form-label">Hình ảnh</label>
-          <input type="file" class="form-control" id="image" value="select"
+          <input type="file"
+                 class="form-control"
+                 id="image"
+                 value="select"
                  (change)="onSelectedFile($event)"
-                 name="image" required>
+                 name="image"
+                 required>
         </div>
         <div *ngFor="let file of cinema.images; let i = index;">
           <div style="position: relative">

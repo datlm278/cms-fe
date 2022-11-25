@@ -86,12 +86,4 @@ export class AddOrEditCinemaTypeComponent implements OnInit {
       }
     )
   }
-
-  onChangeStatus($event: MatSlideToggleChange) {
-    if ($event.checked) {
-      this.cinemaType.status = 1
-    } else {
-      this.cinemaType.status = 0
-    }
-  }
 }

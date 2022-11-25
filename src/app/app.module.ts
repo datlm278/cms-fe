@@ -28,6 +28,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCardModule} from "@angular/material/card";
 import { AddOrEditCinemaTypeComponent } from './admin/cinema-type/add-or-edit-cinema-type/add-or-edit-cinema-type.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { AddOrEditProducerComponent } from './admin/producer/add-or-edit-producer/add-or-edit-producer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     ImagesDialogComponent,
     DeleteDialogComponent,
     AddOrEditCinemaTypeComponent,
+    AddOrEditProducerComponent,
   ],
     imports: [
         BrowserModule,

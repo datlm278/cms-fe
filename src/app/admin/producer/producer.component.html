@@ -1,1 +1,83 @@
-<p>producer works!</p>
+<div class="container-fluid p-4">
+  <h1>Quản lý nhà sản xuất</h1>
+
+  <div class="d-flex justify-content-between">
+    <div class="d-flex gap-2">
+      <button mat-stroked-button
+              color="warn"
+              (click)="openCreateDialog()"
+              class="mat-button">
+        <mat-icon>add</mat-icon> Thêm mới
+      </button>
+    </div>
+  </div>
+
+  <div class="table-wrapper my-4">
+    <div class="table-responsive border rounded">
+      <div class="table-header bg-light rounded-top">
+        <div class="d-flex justify-content-between align-items-center p-2">
+          <input
+            type="text"
+            class="form-control"
+            style="max-width: 100%; margin-bottom: 10px"
+            placeholder="Tìm kiếm..."
+          />
+        </div>
+      </div>
+      <table class="table table-responsive table-body">
+        <thead>
+          <tr >
+            <th class="text-secondary">STT</th>
+            <th class="text-secondary">Nhà sản xuất</th>
+            <th class="text-secondary">Mô tả</th>
+            <th class="text-secondary">Hình ảnh</th>
+            <th class="text-secondary">Trạng thái</th>
+            <th class="text-secondary">Thời gian tạo</th>
+            <th class="text-secondary">Thời gian cập nhật</th>
+            <th class="text-secondary">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producer of producers; index as index">
+            <td class="text-truncate" style="max-width: 100px;">{{ index + 1 }}</td>
+            <td class="text-truncate" style="max-width: 200px;">{{ producer.name }}</td>
+            <td class="text-truncate" style="max-width: 400px;">{{ producer.description }}</td>
+            <td class="text-truncate">
+              <img [src]="producer.image" alt="image" width="50px" height="30px">
+            </td>
+            <td class="text-truncate">
+              <div
+                class="d-inline-block bg-success bg-opacity-25 text-success p-2 rounded"
+                [ngClass]="producer.status === 1 ? 'text-success bg-success' : 'text-danger bg-danger'">
+                {{ producer.status === 1 ? "Hiệu lực" : "Hết hiệu lực" }}
+              </div>
+            </td>
+            <td class="text-truncate">{{ producer.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td class="text-truncate">{{ producer.updateTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td class="text-truncate">
+              <button mat-icon-button
+                      color="primary"
+                      class="mat-button"
+                      (click)="openUpdateDialog(producer.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button
+                      color="primary"
+                      class="mat-button"
+                      (click)="openImageDialog()">
+                <mat-icon>image</mat-icon>
+              </button>
+              <button mat-icon-button
+                      color="warn"
+                      class="mat-button"
+                      (click)="openDeleteDialog(producer.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

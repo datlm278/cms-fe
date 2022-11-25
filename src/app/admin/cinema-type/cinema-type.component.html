@@ -29,51 +29,51 @@
       </div>
     </div>
     <table class="table table-responsive table-body">
-        <thead>
-            <tr>
-                <th class="text-secondary">STT</th>
-                <th class="text-secondary">Loại phim</th>
-                <th class="text-secondary">Mô tả</th>
-                <th class="text-secondary">Trạng thái</th>
-                <th class="text-secondary">Thời gian tạo</th>
-                <th class="text-secondary">Thời gian cập nhật</th>
-                <th class="text-secondary">Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let cinemaType of cinemaTypes; index as index">
-                <td class="text-truncate" style="max-width: 100px;">
-                    {{index + 1}}
-                </td>
-                <td class="text-truncate" style="max-width: 100px;">{{cinemaType.name}}</td>
-                <td class="text-truncate" style="max-width: 400px;">
-                    {{cinemaType.description}}
-                </td>
-                <td class="text-truncate">
-                    <div
-                    class="d-inline-block bg-success bg-opacity-25 text-success p-2 rounded"
-                    [ngClass]="cinemaType.status === 1 ? 'text-success bg-success' : 'text-danger bg-danger'">
-                    {{ cinemaType.status === 1 ? "Hiệu lực" : "Hết hiệu lực" }}
-                  </div>
-                </td>
-                <td class="text-truncate">{{cinemaType.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td class="text-truncate">{{cinemaType.updateTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>
-                    <button mat-icon-button
-                            color="primary"
-                            class="mat-button"
-                            (click)="openUpdateDialog(cinemaType.id)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            color="warn"
-                            class="mat-button"
-                            (click)="openDeleteDialog(cinemaType.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
+      <thead>
+      <tr>
+        <th class="text-secondary">STT</th>
+        <th class="text-secondary">Loại phim</th>
+        <th class="text-secondary">Mô tả</th>
+        <th class="text-secondary">Trạng thái</th>
+        <th class="text-secondary">Thời gian tạo</th>
+        <th class="text-secondary">Thời gian cập nhật</th>
+        <th class="text-secondary">Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cinemaType of cinemaTypes; index as index">
+        <td class="text-truncate" style="max-width: 100px;">
+          {{index + 1}}
+        </td>
+        <td class="text-truncate" style="max-width: 100px;">{{cinemaType.name}}</td>
+        <td class="text-truncate" style="max-width: 400px;">
+          {{cinemaType.description}}
+        </td>
+        <td class="text-truncate">
+          <div
+            class="d-inline-block bg-success bg-opacity-25 text-success p-2 rounded"
+            [ngClass]="cinemaType.status === 1 ? 'text-success bg-success' : 'text-danger bg-danger'">
+            {{ cinemaType.status === 1 ? "Hiệu lực" : "Hết hiệu lực" }}
+          </div>
+        </td>
+        <td class="text-truncate">{{cinemaType.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td class="text-truncate">{{cinemaType.updateTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td>
+          <button mat-icon-button
+                  color="primary"
+                  class="mat-button"
+                  (click)="openUpdateDialog(cinemaType.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button
+                  color="warn"
+                  class="mat-button"
+                  (click)="openDeleteDialog(cinemaType.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
     </table>
   </div>
 </div>

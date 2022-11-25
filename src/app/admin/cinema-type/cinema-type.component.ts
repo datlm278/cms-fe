@@ -61,27 +61,23 @@ export class CinemaTypeComponent implements OnInit {
   }
 
   openUpdateDialog(id: number | undefined) {
-    this.cinemaTypeService.getCinemaTypeById(id)
-      .subscribe(
-        (response) => {
-          this.cinemaType = response;
-          console.log("getCinemaTypeById", response)
-          setTimeout(() => {
-            // const date = new Date(this.cinema.releaseDate);
-            // let releaseDate = formatDate(date, 'MM/dd/yyyy', 'en-US')
-            // console.log(releaseDate)
-            const dialogData = new AddOrEditCinemaTypeData(this.cinemaType)
-            this.dialog.open(AddOrEditCinemaTypeComponent,
-              {
-                width: "30%",
-                data: dialogData
-              }).afterClosed().subscribe(value => {
-              if (value === 'update') {
-                this.getCinemaTypes();
-              }
-            })
-          });
-        })
+    this.cinemaTypeService.getCinemaTypeById(id).subscribe(
+      (response) => {
+        this.cinemaType = response;
+        console.log("getCinemaTypeById", response)
+        setTimeout(() => {
+          const dialogData = new AddOrEditCinemaTypeData(this.cinemaType)
+          this.dialog.open(AddOrEditCinemaTypeComponent,
+            {
+              width: "30%",
+              data: dialogData
+            }).afterClosed().subscribe(value => {
+            if (value === 'update') {
+              this.getCinemaTypes();
+            }
+          })
+        });
+      })
   }
 
   openDeleteDialog(id: number | undefined) {

@@ -11,13 +11,11 @@
         #typeName="ngModel"
         [(ngModel)]="cinemaType.name"
         id="cinemaTypeName"
-        required
-      />
+        required/>
       <div *ngIf="typeName.invalid && (typeName.dirty || typeName.touched)">
         <div *ngIf="typeName.errors?.['required']">
-          <span class="is-invalid form-text" style="color: red"
-          >Vui lòng nhập loại phim</span
-          >
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập loại phim</span>
         </div>
       </div>
     </div>
@@ -30,15 +28,11 @@
         [(ngModel)]="cinemaType.description"
         id="cinemaTypeDescription"
         rows="10"
-        maxlength="1000"
-        required
-      ></textarea>
+        maxlength="1000" required></textarea>
       <div
         *ngIf="
           typeDescription.invalid &&
-          (typeDescription.dirty || typeDescription.touched)
-        "
-      >
+          (typeDescription.dirty || typeDescription.touched)">
         <div *ngIf="typeDescription.errors?.['required']">
           <span class="is-invalid form-text" style="color: red"
           >Vui lòng nhập mô tả loại phim</span
@@ -47,22 +41,13 @@
       </div>
     </div>
     <div class="mb-3">
-        <mat-slide-toggle
-          (change)="cinemaType.status = +$event.checked"
-          [checked]="cinemaType.status === 1"
-          name="status"
-          [color]="'primary'">
-          Trạng thái
-        </mat-slide-toggle>
-<!--      <div class="form-check form-switch">-->
-<!--        <input class="form-check-input"-->
-<!--               name="status"-->
-<!--               (change)="onChangeStatus($event)"-->
-<!--               [ngModel]="cinemaType.status"-->
-<!--               type="checkbox"-->
-<!--               id="status" checked>-->
-<!--        <label class="form-check-label" for="status">Trạng thái</label>-->
-<!--      </div>-->
+      <mat-slide-toggle
+        (change)="cinemaType.status = +$event.checked"
+        [checked]="cinemaType.status === 1"
+        name="status"
+        [color]="'primary'">
+        Trạng thái
+      </mat-slide-toggle>
     </div>
   </form>
 </div>
@@ -73,16 +58,14 @@
     type="submit"
     mat-raised-button
     color="primary"
-    (click)="createOrUpdateCinemaType(cinemaType, form)"
-  >
+    (click)="createOrUpdateCinemaType(cinemaType, form)">
     {{ action }}
   </button>
   <button
     mat-raised-button
     color="warn"
     style="margin-left: 10px"
-    (click)="close()"
-  >
+    (click)="close()">
     Cancel
   </button>
 </div>
