@@ -25,6 +25,13 @@ import { ImagesDialogComponent } from './admin/cinema/images-dialog/images-dialo
 import {DeleteDialogComponent} from "./admin/delete-dialog/delete-dialog.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatCardModule} from "@angular/material/card";
+import { AddOrEditCinemaTypeComponent } from './admin/cinema-type/add-or-edit-cinema-type/add-or-edit-cinema-type.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { AddOrEditProducerComponent } from './admin/producer/add-or-edit-producer/add-or-edit-producer.component';
+import { CinemaRoomComponent } from './admin/cinema-room/cinema-room.component';
+import { SeatRoomComponent } from './admin/seat-room/seat-room.component';
+import { AddCinemaRoomComponent } from './admin/cinema-room/add-cinema-room/add-cinema-room.component';
 
 @NgModule({
   declarations: [
@@ -39,25 +46,32 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     AddOrEditCinemaComponent,
     ImagesDialogComponent,
     DeleteDialogComponent,
+    AddOrEditCinemaTypeComponent,
+    AddOrEditProducerComponent,
+    CinemaRoomComponent,
+    SeatRoomComponent,
+    AddCinemaRoomComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatDialogModule,
-    MatGridListModule,
-    ScrollingModule,
-    MatInputModule,
-    MatDatepickerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatDialogModule,
+        MatGridListModule,
+        ScrollingModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatSlideToggleModule
+    ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,9 @@
 export interface Producer {
-  id: number,
+  id?: number,
   name: string,
-  description?: string,
-  status?: number,
+  description: string,
+  status: number,
   image: string,
-  createTime: string,
-  updateTime: string
+  createTime?: string,
+  updateTime?: string
 }

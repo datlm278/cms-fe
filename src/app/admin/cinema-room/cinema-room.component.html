@@ -1,16 +1,14 @@
 <div class="container-fluid p-4">
-  <h1>Quản lý loại phim</h1>
+  <h1>Quản lý phòng chiếu</h1>
 
   <div class="d-flex justify-content-between">
     <div class="d-flex gap-2">
-      <button
-        mat-stroked-button
-        color="warn"
-        class="mat-button"
-        (click)="openCreateDialog()"
-      >
+      <button mat-stroked-button
+              color="warn"
+              class="mat-button"
+              (click)="openCreateDialog()">
         <mat-icon>add</mat-icon>
-        Thêm mới
+        Tạo phòng chiếu
       </button>
     </div>
   </div>
@@ -32,8 +30,9 @@
       <thead>
       <tr>
         <th class="text-secondary">STT</th>
-        <th class="text-secondary">Loại phim</th>
-        <th class="text-secondary">Mô tả</th>
+        <th class="text-secondary">Mã phòng</th>
+        <th class="text-secondary">Tổng số ghế</th>
+        <th class="text-secondary">Loại màn hình</th>
         <th class="text-secondary">Trạng thái</th>
         <th class="text-secondary">Thời gian tạo</th>
         <th class="text-secondary">Thời gian cập nhật</th>
@@ -41,34 +40,39 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let cinemaType of cinemaTypes; index as index">
-        <td class="text-truncate" style="max-width: 100px;">
+      <tr *ngFor="let cinemaRoom of cinemaRooms; index as index">
+        <td class="text-truncate">
           {{index + 1}}
         </td>
-        <td class="text-truncate" style="max-width: 100px;">{{cinemaType.name}}</td>
-        <td class="text-truncate" style="max-width: 400px;">
-          {{cinemaType.description}}
+        <td class="text-truncate">
+          {{cinemaRoom.roomCode}}
+        </td>
+        <td class="text-truncate">
+          {{cinemaRoom.totalSeats}}
+        </td>
+        <td class="text-truncate">
+          {{cinemaRoom.screenType}}
         </td>
         <td class="text-truncate">
           <div
             class="d-inline-block bg-success bg-opacity-25 text-success p-2 rounded"
-            [ngClass]="cinemaType.status === 1 ? 'text-success bg-success' : 'text-danger bg-danger'">
-            {{ cinemaType.status === 1 ? "Hiệu lực" : "Hết hiệu lực" }}
+            [ngClass]="cinemaRoom.status === 1 ? 'text-success bg-success' : 'text-danger bg-danger'">
+            {{ cinemaRoom.status === 1 ? "Hiệu lực" : "Hết hiệu lực" }}
           </div>
         </td>
-        <td class="text-truncate">{{cinemaType.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-        <td class="text-truncate">{{cinemaType.updateTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-        <td>
+        <td class="text-truncate">{{cinemaRoom.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td class="text-truncate">{{cinemaRoom.updateTime | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td class="">
           <button mat-icon-button
                   color="primary"
                   class="mat-button"
-                  (click)="openUpdateDialog(cinemaType.id)">
+                  (click)="openUpdateDialog(cinemaRoom.id)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button
                   color="warn"
                   class="mat-button"
-                  (click)="openDeleteDialog(cinemaType.id)">
+                  (click)="openDeleteDialog(cinemaRoom.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

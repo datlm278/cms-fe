@@ -1,0 +1,85 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<div mat-dialog-content>
+  <form #form="ngForm" class="row justify-content-md-center">
+    <div class="mb-3">
+      <label for="producerName" class="form-label">Nhà sản xuất</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        #producerName="ngModel"
+        [(ngModel)]="producer.name"
+        id="producerName"
+        placeholder="Nhập nhà sản xuất"
+        required/>
+      <div *ngIf="producerName.invalid && (producerName.dirty || producerName.touched)">
+        <div *ngIf="producerName.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập tên nhà sản xuất</span>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="producerDescription" class="form-label">Mô tả</label>
+      <textarea
+        name="description"
+        class="form-control"
+        #producerDescription="ngModel"
+        [(ngModel)]="producer.description"
+        id="producerDescription"
+        rows="10"
+        maxlength="1000"
+        required></textarea>
+      <div
+        *ngIf="
+          producerDescription.invalid &&
+          (producerDescription.dirty || producerDescription.touched)">
+        <div *ngIf="producerDescription.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red"
+          >Vui lòng nhập mô tả nhà sản xuất</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div>
+        <label for="image" class="form-label">Hình ảnh</label>
+        <input type="file"
+               class="form-control"
+               id="image"
+               (change)="onSelectedFile($event)"
+               name="image"
+               required/>
+        <img [src]="producer.image" alt="image-preview" width="100%" height="300px" style="margin-top: 10px">
+      </div>
+    </div>
+    <div class="mb-3">
+      <mat-slide-toggle
+        (change)="producer.status = +$event.checked"
+        [checked]="producer.status === 1"
+        name="status"
+        [color]="'primary'">
+        Trạng thái
+      </mat-slide-toggle>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    [disabled]="form.form.invalid"
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="createOrUpdateProducer(producer, form)">
+    {{ action }}
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    style="margin-left: 10px"
+    (click)="close()">
+    Cancel
+  </button>
+</div>
