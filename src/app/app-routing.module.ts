@@ -7,6 +7,8 @@ import {DashboardComponent} from "./admin/dashboard/dashboard.component";
 import {CinemaTypeComponent} from "./admin/cinema-type/cinema-type.component";
 import {ProducerComponent} from "./admin/producer/producer.component";
 import {CinemaComponent} from "./admin/cinema/cinema.component";
+import {CinemaRoomComponent} from "./admin/cinema-room/cinema-room.component";
+import {SeatRoomComponent} from "./admin/seat-room/seat-room.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -20,7 +22,9 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'cinema-type', component: CinemaTypeComponent},
       { path: 'producer', component: ProducerComponent},
-      { path: 'cinema', component: CinemaComponent}
+      { path: 'cinema', component: CinemaComponent},
+      { path: 'cinema-room', component: CinemaRoomComponent},
+      { path: 'seat-room', component: SeatRoomComponent}
     ]
   }
 ];

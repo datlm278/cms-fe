@@ -1,0 +1,134 @@
+<h1 mat-dialog-title> Tạo phòng chiếu và ghế phòng</h1>
+
+<div mat-dialog-content>
+  <form #form="ngForm" class="row justify-content-center">
+    <div class="col-6">
+      <h3>Phòng chiếu</h3>
+      <div class="mb-3">
+        <label for="cinemaRoomCode" class="form-label">Mã phòng chiếu</label>
+        <input
+          type="text"
+          name="roomCode"
+          class="form-control"
+          #roomCode="ngModel"
+          [(ngModel)]="cinemaSeatRoom.roomCode"
+          id="cinemaRoomCode"
+          required/>
+        <div *ngIf="roomCode.invalid && (roomCode.dirty || roomCode.touched)">
+          <div *ngIf="roomCode.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập mã phòng chiếu
+          </span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="cinemaTotalSeats" class="form-label">Tổng số ghế</label>
+        <input
+          type="number"
+          name="totalSeats"
+          class="form-control"
+          #totalSeats="ngModel"
+          min="0"
+          max="1000"
+          [(ngModel)]="cinemaSeatRoom.totalSeats"
+          id="cinemaTotalSeats"
+          required/>
+        <div *ngIf="totalSeats.invalid && (totalSeats.dirty || totalSeats.touched)">
+          <div *ngIf="totalSeats.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập số ghế của phòng chiếu
+          </span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="screenType" class="form-label">Loại màn hình</label>
+        <input
+          type="text"
+          name="screenType"
+          class="form-control"
+          #screenType="ngModel"
+          [(ngModel)]="cinemaSeatRoom.screenType"
+          id="screenType"
+          required/>
+        <div *ngIf="screenType.invalid && (screenType.dirty || screenType.touched)">
+          <div *ngIf="screenType.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập loại màn hình
+          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h3>Ghế Phòng</h3>
+      <div class="mb-3">
+        <label for="rowName" class="form-label">Hàng ghế</label>
+        <input
+          type="text"
+          name="rowName"
+          class="form-control"
+          #rowName="ngModel"
+          pattern="[a-zA-Z]+$"
+          [(ngModel)]="cinemaSeatRoom.rowName"
+          id="rowName"
+          required/>
+        <div *ngIf="rowName.invalid && (rowName.dirty || rowName.touched)">
+          <div *ngIf="rowName.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập hàng ghế
+          </span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="seatNumber" class="form-label">Ghế số</label>
+        <input
+          type="number"
+          name="seatNumber"
+          class="form-control"
+          #seatNumber="ngModel"
+          min="0"
+          max="1000"
+          [(ngModel)]="cinemaSeatRoom.seatNumber"
+          id="seatNumber"
+          required/>
+        <div *ngIf="seatNumber.invalid && (seatNumber.dirty || seatNumber.touched)">
+          <div *ngIf="seatNumber.errors?.['required']">
+          <span class="is-invalid form-text" style="color: red">
+            Vui lòng nhập số ghế của phòng chiếu
+          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <mat-slide-toggle
+        (change)="cinemaSeatRoom.status = +$event.checked"
+        [checked]="cinemaSeatRoom.status === 1"
+        name="status"
+        [color]="'primary'">
+        Trạng thái
+      </mat-slide-toggle>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    [disabled]="form.form.invalid"
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="createCinemaRoomAndSeatRoom(cinemaSeatRoom, form)">
+    Thêm mới
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    style="margin-left: 10px"
+    (click)="close()">
+    Cancel
+  </button>
+</div>
