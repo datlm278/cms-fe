@@ -8,9 +8,9 @@ export interface Cinema {
     status?: number,
     createTime: string,
     updateTime: string,
-    cinemaTypeId: number
+    cinemaTypeId?: number
     cinemaType: string,
-    producerId: number,
+    producerId?: number,
     producerName: string,
     images: FileHandle[]
 }

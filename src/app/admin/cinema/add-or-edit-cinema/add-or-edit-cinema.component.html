@@ -16,6 +16,7 @@
           </div>
         </div>
       </div>
+
       <div class="mb-3">
         <label for="releaseDate" class="form-label">Ngày khởi chiếu</label>
         <input type="date" class="form-control"
@@ -31,12 +32,14 @@
           </div>
         </div>
       </div>
+
       <div class="mb-3">
         <label for="director" class="form-label">Đạo diễn</label>
         <input type="text" class="form-control" id="director"
                #director="ngModel"
                [(ngModel)]="cinema.director"
-               name="director" required>
+               name="director"
+               required>
         <div *ngIf="director.invalid && (director.dirty || director.touched)">
           <div *ngIf="director.errors?.['required']">
             <span class="is-invalid form-text" style="color: red">Vui lòng nhập tên đạo diễn</span>
@@ -63,12 +66,14 @@
           </div>
         </div>
       </div>
+
       <div class="mb-3">
         <label for="cinemaType" class="form-label">Loại phim</label>
         <select id="cinemaType" class="form-select"
                 [(ngModel)]="cinema.cinemaTypeId"
                 name="cinemaTypeId"
-                #cinemaType="ngModel" required>
+                #cinemaType="ngModel"
+                required>
           <option *ngFor="let cinemaType of cinemaTypes" [value]="cinemaType.id">
             {{ cinemaType.name }}
           </option>
@@ -104,7 +109,8 @@
         <select id="status" class="form-select"
                 [(ngModel)]="cinema.status"
                 name="status"
-                #status="ngModel" required>
+                #status="ngModel"
+                required>
           <option value="1">Đang chiếu</option>
           <option value="0">Dừng chiếu</option>
         </select>

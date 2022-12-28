@@ -37,8 +37,6 @@ export class AddOrEditCinemaComponent implements OnInit {
   cinemaTypes: CinemaType[] = [];
   cinema: Cinema = {
     images: [],
-    cinemaTypeId: 0,
-    producerId: 0,
     cinemaType: '',
     createTime: '',
     director: '',
